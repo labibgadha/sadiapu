@@ -1,35 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maaf kore den madam</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#11131b">
+<title>সাদিয়া আপুর জন্য</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Noto+Serif+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#11131b;--ink:#2d2931;--paper:#fbf7f0;--accent:#d3a4b7;--muted:#b9b6c2}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;overflow-x:hidden;background:radial-gradient(ellipse at 50% 15%,#28253a 0,transparent 55%),var(--bg);font-family:'Hind Siliguri',sans-serif;color:#f4f0f5;cursor:none}
+button,a,[role=button]{cursor:none}
+#cursor{position:fixed;z-index:1000;left:0;top:0;width:22px;height:22px;border:1px solid #e8c4d4;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .18s,height .18s,background .18s;display:grid;place-items:center}
+#cursor:after{content:"";width:4px;height:4px;background:#f4dce7;border-radius:50%}
+.cursor-dot{position:fixed;z-index:999;left:0;top:0;pointer-events:none;width:5px;height:5px;border-radius:50%;background:#e8c4d4;opacity:.7;transform:translate(-50%,-50%);animation:fade .55s linear forwards}
+@keyframes fade{to{opacity:0;transform:translate(-50%,-50%) scale(.1)}}
+#bg{position:fixed;inset:0;pointer-events:none;opacity:.4}
+.page{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:34px 18px 60px}
+.scene{width:min(440px,88vw);height:290px;position:relative;perspective:1000px;transition:opacity .6s,transform .6s}
+.envelope{position:absolute;inset:20px 0 0;cursor:none;outline:none;filter:drop-shadow(0 24px 38px #0007);transition:transform .4s}
+.envelope:hover{transform:translateY(-4px) scale(1.015)}.envelope:focus-visible{outline:2px solid #e8c4d4;outline-offset:12px;border-radius:8px}
+.back{position:absolute;inset:0;border-radius:7px;background:linear-gradient(140deg,#d6b7c3,#956a85)}
+.paper{position:absolute;left:6%;right:6%;bottom:8px;height:220px;background:var(--paper);border-radius:3px;z-index:2;transition:transform 1s cubic-bezier(.2,.75,.2,1);box-shadow:0 2px 8px #0002}
+.paper:before{content:"";position:absolute;top:22px;left:25px;right:25px;height:1px;background:#e7dce0;box-shadow:0 13px #e7dce0,0 26px #e7dce0}
+.front{position:absolute;inset:0;z-index:3;border-radius:7px;background:linear-gradient(145deg,#c99bad,#a97994);clip-path:polygon(0 0,50% 57%,100% 0,100% 100%,0 100%)}
+.flap{position:absolute;inset:0;z-index:4;background:linear-gradient(145deg,#e0c1ce,#bd8ca4);clip-path:polygon(0 0,100% 0,50% 61%);transform-origin:top;transition:transform .85s cubic-bezier(.2,.7,.2,1)}
+.seal{position:absolute;z-index:5;top:56%;left:50%;transform:translate(-50%,-50%);width:43px;height:43px;border-radius:50%;display:grid;place-items:center;background:#6f526a;color:#f5e8ee;border:1px solid #e9d1dd;font-family:Georgia,serif;font-size:17px;transition:.3s}
+.envelope.open .flap{transform:rotateX(180deg);z-index:1}.envelope.open .seal{opacity:0;transform:translate(-50%,-35%) scale(.5)}.envelope.open .paper{transform:translateY(-150px)}
+.letter{width:min(720px,92vw);background:var(--paper);color:var(--ink);border-radius:3px;padding:clamp(25px,6vw,58px);box-shadow:0 28px 90px #0005;opacity:0;visibility:hidden;transform:translateY(28px) scale(.98);max-height:0;overflow:hidden;transition:opacity .7s,transform .7s,max-height 1.2s,visibility .7s;position:relative}
+.letter.show{opacity:1;visibility:visible;transform:none;max-height:4000px;margin-top:22px}
+.letter:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#bd8ca4}
+.letter p{font-family:'Noto Serif Bengali',serif;font-size:clamp(16px,2.1vw,19px);line-height:2.05;margin:0 0 1.15em}
+.letter p:first-child{font-weight:600}
+.sign{font-family:'Noto Serif Bengali',serif;font-size:18px;line-height:1.8;margin-top:25px}
+.open-btn{position:relative;z-index:2;margin-top:4px;border:1px solid #716779;background:#262433;color:#f6eff4;border-radius:999px;padding:11px 22px;font:500 14px 'Hind Siliguri',sans-serif;transition:background .25s,border-color .25s,transform .25s}
+.open-btn:hover{background:#443449;border-color:#d3a4b7;transform:translateY(-2px)}
+body.opened .scene{height:150px}body.opened .envelope{transform:scale(.58) translateY(-40px);transform-origin:top center;opacity:.75}body.opened .open-btn{display:none}
+@media(max-width:600px){body{cursor:auto}button,a,[role=button]{cursor:pointer}#cursor,.cursor-dot{display:none}.scene{height:250px}.paper{height:190px}body.opened .scene{height:105px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.toast-stack{position:fixed;right:22px;bottom:22px;z-index:1200;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{max-width:min(340px,calc(100vw - 32px));padding:14px 18px;border:1px solid rgba(232,196,212,.4);border-radius:14px;background:rgba(31,26,39,.94);color:#fff4f8;box-shadow:0 14px 40px #0005;font:500 15px/1.6 'Hind Siliguri',sans-serif;backdrop-filter:blur(14px);opacity:0;transform:translateY(14px) scale(.98);animation:toastIn .55s cubic-bezier(.2,.8,.2,1) forwards,toastOut .5s ease-in 4.7s forwards}
+.toast:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#e8b8cd;margin:0 9px 2px 0}
+@keyframes toastIn{to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes toastOut{to{opacity:0;transform:translateY(8px) scale(.98)}}
+@media(max-width:600px){.toast-stack{right:12px;bottom:12px;left:12px;align-items:flex-end}.toast{font-size:14px}}
+</style>
 </head>
 <body>
-    <div id="round-1">
-        <p>East or West, Faija is the best.</p>
-        <button onclick="answer1('yes')">Yes</button>
-        <button onclick="answer1('no')">No</button>
-    </div>
+<canvas id="bg"></canvas><div id="cursor" aria-hidden="true"></div><div class="toast-stack" id="toastStack" aria-live="polite"></div>
+<main class="page">
+ <div class="scene" id="scene">
+  <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="চিঠি খুলুন">
+   <div class="back"></div><div class="paper"></div><div class="front"></div><div class="flap"></div><div class="seal">LM</div>
+  </div>
+ </div>
+ <button class="open-btn" id="openBtn">চিঠি খুলুন</button>
+ <article class="letter" id="letter">
+  <p>আসসালামু আলাইকুম, সাদিয়া আপু,</p>
+  <p>জানি না কী হয়েছে, আপনি আমার ওপর এত রাগ করে আছেন কেন। আমি আসলেই অনেক গাধা—নিজেও বুঝতে পারি না কখন কী করে ফেলি। যদি অজান্তে আপনাকে কষ্ট দিয়ে থাকি, তাহলে আমি সত্যিই অনেক দুঃখিত, আপু। বিশ্বাস করুন, আপনাকে কষ্ট দেওয়ার কোনো ইচ্ছা আমার কখনোই ছিল না।</p>
+  <p>আপনার সঙ্গে কাটানো সেই দিনগুলো আমার ভীষণ মনে পড়ে, আপু। ঘণ্টার পর ঘণ্টা কথা বলা, শ্রীলঙ্কায় মাত্র ১৮ ঘণ্টার সেই এত সুন্দর স্মৃতি, ঢাকায় ঘুরতে যাওয়া, ক্যাফে, লায়লাতি আর আপনার প্রিয় ইয়ুমচা। তখন বুঝিনি, এই ছোট ছোট মুহূর্তগুলোই একদিন এত বেশি মনে পড়বে। কখনো ভাবিনি, একদিন আপনার সঙ্গে কথা বলার জন্য এভাবে একটা চিঠি লিখতে হবে।</p>
+  <p>আপনি দীপোর বন্ধু ছিলেন, কিন্তু কখন যে আমারও কাছের একজন মানুষ হয়ে গিয়েছিলেন, বুঝতেই পারিনি। এখন আপনি এভাবে দূরে সরে গেছেন, আর আমি শুধু পুরোনো স্মৃতিগুলো নিয়েই বসে থাকি।</p>
+  <p>জানি না আপনি আমার বার্তার উত্তর দেবেন কি না। শুধু চেয়েছিলাম, আপনি জানুন—আমি সত্যিই আপনাকে খুব মিস করি। আমি চাই না, আমাদের শেষ স্মৃতিটা রাগ বা ভুল-বোঝাবুঝি হয়ে থাকুক। হয়তো সবকিছু আর আগের মতো হবে না, তবু আশা করি, একদিন আপনি আমাকে ক্ষমা করে দেবেন।</p>
+  <p>আপনাকে উত্তর দিতেই হবে, এমন কোনো কথা নেই, আপু। শুধু চাই, আপনি জানুন—আপনার সঙ্গে কাটানো সময়গুলো আমার কাছে ভীষণ বিশেষ ছিল, আর এখনো আছে।</p>
+  <p>ভালো থাকবেন, আপু। নিজের খেয়াল রাখবেন। সত্যিই আশা করি, একদিন আবার আপনার সঙ্গে আগের মতো কথা বলতে পারব।</p>
+  <div class="sign">আপনার ছোট ভাই,<br>লাবিব</div>
+ </article>
+</main>
+<script>
+const envelope=document.getElementById('envelope'),letter=document.getElementById('letter');
+function openLetter(){if(document.body.classList.contains('opened'))return;document.body.classList.add('opened');envelope.classList.add('open');setTimeout(()=>{letter.classList.add('show');setTimeout(()=>letter.scrollIntoView({behavior:'smooth',block:'start'}),300)},420)}
+envelope.addEventListener('click',openLetter);envelope.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLetter()}});document.getElementById('openBtn').addEventListener('click',openLetter);
+// Custom cursor: smooth ring + a short fading trail, with subtle expansion over interactive objects.
+const cursor=document.getElementById('cursor');let mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my,last=0;
+addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;if(Date.now()-last>24){last=Date.now();const d=document.createElement('i');d.className='cursor-dot';d.style.left=mx+'px';d.style.top=my+'px';document.body.appendChild(d);setTimeout(()=>d.remove(),600)}});
+function moveCursor(){cx+=(mx-cx)*.22;cy+=(my-cy)*.22;cursor.style.left=cx+'px';cursor.style.top=cy+'px';requestAnimationFrame(moveCursor)}moveCursor();
+document.querySelectorAll('button,[role=button]').forEach(el=>{el.addEventListener('pointerenter',()=>{cursor.style.width='36px';cursor.style.height='36px';cursor.style.background='rgba(232,196,212,.12)'});el.addEventListener('pointerleave',()=>{cursor.style.width='22px';cursor.style.height='22px';cursor.style.background='transparent'})});
+// Short messages appear every 10 seconds, one at a time.
+const popupMessages = [
+  'Ik, apni ashben',
+  'apu, aibar maf kore den',
+  'accha pora ses hoile ekta dot pathan bujte parbo porsen'
+];
+let popupIndex = 0;
+function showPopup(){
+  const stack = document.getElementById('toastStack');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = popupMessages[popupIndex % popupMessages.length];
+  popupIndex++;
+  stack.appendChild(toast);
+  setTimeout(()=>toast.remove(), 5400);
+}
+setTimeout(()=>{
+  showPopup();
+  setInterval(showPopup, 10000);
+}, 10000);
 
-    <div id="round-2" class="hidden">
-        <p>Is Faija kind hearted?</p>
-        <button onclick="answer2('yes')">Yes</button>
-        <button onclick="answer2('no')">No</button>
-    </div>
-
-    <div id="round-3" class="hidden">
-        <p>Faija plz maaf more dao ToT</p>
-        <button id="yes-button" onclick="answer3('yes')">Yes</button>
-        <button id="no-button" onclick="answer3('no')">No</button>
-    </div>
-
-    <div id="thank-you" class="hidden"></div>
-    <div id="try-again" class="hidden">Beyadob polapain! Try again.</div>
-    <div id="try-again-2" class="hidden">Beyadob chele tahole ke kind hearted. Try again.</div>
-    <div id="try-again-3" class="hidden">Plz maaf koro!</div>
-
-    <script src="script.js"></script>
+// Ambient drifting points
+const canvas=document.getElementById('bg'),ctx=canvas.getContext('2d');let pts=[];
+function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);pts=Array.from({length:65},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.2+.3,v:Math.random()*.18+.04}))}
+function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);for(const p of pts){p.y-=p.v;if(p.y<0){p.y=innerHeight;p.x=Math.random()*innerWidth}ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(220,190,211,.48)';ctx.fill()}requestAnimationFrame(draw)}
+addEventListener('resize',resize);resize();draw();
+</script>
 </body>
 </html>
